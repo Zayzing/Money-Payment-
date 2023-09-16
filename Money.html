@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prank Link</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+        }
+        button {
+            background-color: green;
+            color: white;
+            padding: 10px 20px;
+            font-size: 18px;
+        }
+        input[type="number"] {
+            padding: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Click to Pay</h1>
+    <button onclick="startPayment()">Pay</button>
+    <div id="loading" style="display: none;">
+        <p>Loading...</p>
+        <div id="progress-bar" style="background-color: green; height: 20px; width: 0;"></div>
+    </div>
+    <div id="amount-entry" style="display: none;">
+        <p>Enter the amount:</p>
+        <input type="number" id="amount" placeholder="Amount">
+        <button onclick="processPayment()">Send</button>
+    </div>
+    <p id="message"></p>
+
+    <script>
+        function startPayment() {
+            document.getElementById("loading").style.display = "block";
+            let progressBar = document.getElementById("progress-bar");
+            let width = 1;
+            let interval = setInterval(function() {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    document.getElementById("loading").style.display = "none";
+                    document.getElementById("amount-entry").style.display = "block";
+                } else {
+                    width++;
+                    progressBar.style.width = width + "%";
+                }
+            }, 30);
+        }
+
+        function processPayment() {
+            let amount = document.getElementById("amount").value;
+            if (amount == 1000000) {
+                document.getElementById("amount-entry").style.display = "none";
+                document.getElementById("message").innerHTML = "Sending money...<br>Ok, thanks for the money, dude, but you were scammed!";
+            } else {
+                document.getElementById("message").innerHTML = "WRONG AMOUNT! ENTER AMOUNT AGAIN";
+            }
+        }
+    </script>
+</body>
+</html>
